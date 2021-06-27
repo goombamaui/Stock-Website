@@ -1,0 +1,44 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  main:
+      runs-on: ubuntu-latest
+      
+      steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: dist
+
+      - name: Clone master branch
+        run: |
+          git clone https://github.com/goombamaui/Stock-Website
+
+      - name: Install dependencies
+        run: |
+          cd Stock-Website
+          npm i
+          
+      - name: Build static pages
+        run: |
+          cd Stock-Website
+          npm run build
+
+      - name: Commit files
+        run: |
+          mv Stock-Website/dist/* ./
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add .
+          git commit --allow-empty -m "Deploy"
+
+      - name: Push to dist branch
+        uses: ad-m/github-push-action@master
+        with: 
+          branch: dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}

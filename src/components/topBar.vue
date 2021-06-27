@@ -6,8 +6,8 @@
         <a class="navbar-brand" href="/">Stock Grapher</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a href="/query">Stock Data</a></li>
-        <li><a href="https://github.com/goomabmaui/Stock-Grapher">Github</a></li>
+        <li><a href="">Stock Data</a></li>
+        <li><a href="https://github.com/goomabmaui/Stock-Website">Github</a></li>
       </ul>
     </div>
   </nav>
