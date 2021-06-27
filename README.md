@@ -1,4 +1,4 @@
-# test
+# Stock Grapher
 
 ## Project setup
 ```
