@@ -1,23 +1,38 @@
 <template>
   <div id="app">
-    <topBar />
-      <h1 class="text-center">Stock Grapher</h1>
-      <h3 class="text-center">By Aarav Borthakur and Aarush Vailaya</h3>
-    <p class="text-center">
-      <span>This website allows you to find similar stocks based on a multitude of factors.</span>
-      <br>
-      <span>To get started, <a href="/query">click here</a> </span>
-    </p>
+    <div v-if="page === 'home'">
+      <home v-on:queryWanted="queryWanted" />
+    </div>
+    <div v-else-if="page === 'query'">
+      <query v-on:homeWanted="homeWanted" />
+    </div>
   </div>
 </template>
 
 <script>
-import topBar from './components/topBar.vue'
+import home from './components/home.vue'
+import query from './components/query.vue'
 
 export default {
   name: 'app',
   components: {
-    topBar
+    home,
+    query
+  },
+  methods: {
+    queryWanted: function(event) {
+      event
+      this.page = 'query'
+    },
+    homeWanted: function(event) {
+      event
+      this.page = 'home'
+    }
+  },
+  data: function () {
+    return {
+      page: 'home'
+    }
   }
 }
 </script>
