@@ -3,3 +3,8 @@ input, p {
     margin-left: 30px;
     display: inline-block;
 }
+
+.formField {
+    padding-right: 20px;
+    padding-left: 20px;
+}
