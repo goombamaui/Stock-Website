@@ -63,6 +63,9 @@
     <label for="Margins % of Sales">Margins % of Sales</label>
     <!--<p />-->
 
+    <input class="formField" id="Company Name" value="AAPL" />
+    <label for="Company Name">Company Name</label>
+    
     <!--submit button-->
     <script type="application/javascript">
 function createChart(url) {
@@ -94,6 +97,17 @@ function createChart(url) {
     });
 
     var data = JSON.parse(data);
+    console.log(data);
+    var items = Object.keys(data).map(function(key) {
+      return [key, data[key]];
+    });
+    items.sort(function(a,b){return b[1][0]-a[1][0]});
+    console.log(items);
+    data={};
+    for (var i=0;i<items.length;i++)
+    {
+      data[items[i][0]]=items[i][1];
+    }
     var parsedData = {};
 
     for (var i = 0; i < headers.length; i++) {
@@ -158,8 +172,42 @@ function createChart(url) {
     })
   );
 }
+function createURL(base_url,args)
+{
+    var fields = [
+      "Revenue USD Mil",
+      "Gross Margin %",
+      "Operating Income USD Mil",
+      "Operating Margin %",
+      "Net Income USD Mil",
+      "Earnings Per Share USD",
+      "Dividents USD",
+      "Payout Ratio %",
+      "Shares Mil",
+      "Book Value Per Share * USD",
+      "Operating Cash Flow USD Mil",
+      "Cap Spending USD Mil",
+      "Free Cash Flow USD Mil",
+      "Free Cash Flow Per Share * USD",
+      "Working Capital USD Mil",
+      "Margins % of Sales",
+    ];
+    var headers = [];
+
+    fields.forEach((item, index) => {
+      if (document.getElementById(item).checked) {
+        headers.push(item);
+      }
+    });
+    args.values=headers.join();
+    args.company=document.getElementById("Company Name").value;
+var url = new URL(base_url),params = args;
+Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+console.log(url);
+return url;
+}
     </script>
-    <button onclick="createChart('https://stock-api-site.herokuapp.com/api/similar_companies?company=AAPL&values=Revenue%20USD%20Mil,Gross%20Margin')"></button>
+    <button onclick="createChart(createURL('https://stock-api-site.herokuapp.com/api/similar_companies',{}))" value="Find Companies"></button>
   </div>
 </template>
 
