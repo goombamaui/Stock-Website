@@ -1,5 +1,8 @@
 # Stock Grapher
 
+## URL
+https://goombamaui.github.io/Stock-Website/
+
 ## Project setup
 ```
 npm install
