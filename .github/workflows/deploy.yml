@@ -17,7 +17,7 @@ jobs:
 
       - name: Clone master branch
         run: |
-          git clone https://github.com/gadhagod/Stock-Website
+          git clone https://github.com/goombamaui/Stock-Website
 
       - name: Install dependencies
         run: |
