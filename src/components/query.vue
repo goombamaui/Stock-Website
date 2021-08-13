@@ -23,8 +23,8 @@
     <label for="Earnings Per Share USD">Earnings Per Share USD</label>
     <!--<p />-->
 
-    <input type="checkbox" class="formField" id="Dividents USD" />
-    <label for="Dividents USD">Dividents USD</label>
+    <input type="checkbox" class="formField" id="Dividends USD" />
+    <label for="Dividends USD">Dividends USD</label>
     <!--<p />-->
 
     <input type="checkbox" class="formField" id="Payout Ratio %" />
@@ -81,7 +81,7 @@ function createChart(url) {
       "Operating Margin %",
       "Net Income USD Mil",
       "Earnings Per Share USD",
-      "Dividents USD",
+      "Dividends USD",
       "Payout Ratio %",
       "Shares Mil",
       "Book Value Per Share * USD",
@@ -133,14 +133,18 @@ function createChart(url) {
       ol.textContent = i + ": " + data[i][0] * 100;
       compTable.appendChild(ol);
     }
+    var colors = ["red","orange","yellow","green","blue","purple","black","brown","chartreuse","fuchsia","khaki"];
     document.body.appendChild(compTable);
     for (var i in parsedData) {
       var data_sets = [];
+      p=0;
       for (k in parsedData[i]) {
         var raw_data_set = {
           label: k,
           data: parsedData[i][k],
+          borderColor: colors[p],
         };
+        p+=1;
         data_sets.push(raw_data_set);
       }
       var data = {
@@ -178,7 +182,7 @@ function createURL(base_url, args) {
     "Operating Margin %",
     "Net Income USD Mil",
     "Earnings Per Share USD",
-    "Dividents USD",
+    "Dividends USD",
     "Payout Ratio %",
     "Shares Mil",
     "Book Value Per Share * USD",
@@ -195,6 +199,12 @@ function createURL(base_url, args) {
       headers.push(item);
     }
   });
+  if (headers.length==0)
+  {
+    alert("Please select a box.");
+    return;
+  }
+  console.log(headers.length);
   args.values = headers.join();
   args.company = document.getElementById("Company Name").value;
   var url = new URL(base_url),
